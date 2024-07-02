@@ -26,27 +26,6 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
 
-// CORS configurations
-app.use(
-  cors({
-    origin: "*",
-    credentials: true,
-    methods: ["GET", "POST", "PUT", "DELETE"],
-    allowedHeaders: ["Content-Type", "Authorization"],
-  })
-);
-app.use((req, res, next) => {
-  const allowedOrigins = ["*"];
-  const origin = req.headers.origin;
-
-  if (allowedOrigins.includes(origin)) {
-    next();
-  } else {
-    res.status(404).json({ error: "Blocked by cors!" });
-    return;
-  }
-});
-
 // Routes
 app.use("/api/v1/users", userRoutes);
 app.use("/api/v1/incomes", authenticateUser, incomeRoutes);
