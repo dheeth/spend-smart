@@ -24,7 +24,7 @@ services:
       networks:
         - spend-smart
     spend-smart-mongo:
-      image: mongo:7.0
+      image: joaodrp/mongodb-raspberrypi4-unofficial:7
       container_name: spend-smart-mongo
       volumes:
         - /data/spend-smart-mongo:/data/db
