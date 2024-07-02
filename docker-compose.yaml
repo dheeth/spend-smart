@@ -1,0 +1,37 @@
+services:
+    spend-smart-frontend:
+      restart: unless-stopped
+      container_name: spend-smart-frontend
+      depends_on:
+        - spend-smart-backend
+      ports:
+        - '8080:8080'
+      image: dheeth/spend-smart-frontend
+      volumes:
+        - "/etc/timezone:/etc/timezone:ro"
+        - "/etc/localtime:/etc/localtime:ro"
+      networks:
+        - spend-smart
+    spend-smart-backend:
+      restart: unless-stopped
+      container_name: spend-smart-backend
+      depends_on:
+        - spend-smart-mongo
+      image: dheeth/spend-smart-backend
+      volumes:
+        - "/etc/timezone:/etc/timezone:ro"
+        - "/etc/localtime:/etc/localtime:ro"
+      networks:
+        - spend-smart
+    spend-smart-mongo:
+      image: mongo:7.0
+      container_name: spend-smart-mongo
+      volumes:
+        - /data/spend-smart-mongo:/data/db
+        - "/etc/timezone:/etc/timezone:ro"
+        - "/etc/localtime:/etc/localtime:ro"
+      networks:
+        - spend-smart
+networks:
+  spend-smart:
+    driver: bridge
