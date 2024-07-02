@@ -29,14 +29,14 @@ app.use(cookieParser());
 // CORS configurations
 app.use(
   cors({
-    origin: "https://spend-smart-dev.vercel.app",
+    origin: "*",
     credentials: true,
     methods: ["GET", "POST", "PUT", "DELETE"],
     allowedHeaders: ["Content-Type", "Authorization"],
   })
 );
 app.use((req, res, next) => {
-  const allowedOrigins = ["https://spend-smart-dev.vercel.app"];
+  const allowedOrigins = ["*"];
   const origin = req.headers.origin;
 
   if (allowedOrigins.includes(origin)) {
